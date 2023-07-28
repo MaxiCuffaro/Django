@@ -1,0 +1,28 @@
+{% extends "layouts/feed.html" %}
+{% block content %}
+
+<div class="card" style="width:18rem;">
+    <img class="card-imag-top" src="{{ user.profile.image.url }}" alt="Card image cap">
+    <div class="card-body">
+        <h5 class=""card-title>@{{ user.username }}</h5>
+    </div>
+
+    <div class="Follow">
+        <div>
+            <h5> Post </h5>
+            <p>{{ user.posts.count }}</p>
+        </div>
+    </div>
+    <div>
+        <h5>Seguidores</h5>
+        <p>0</p>
+    </div>
+    <div>
+        <h5>Seguidos</h5>
+        <p>0</p>
+    </div>
+
+</div>
+
+{{ block.super }}
+{% endblock %}

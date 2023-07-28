@@ -9,7 +9,11 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar bg-body-tertiary navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="../../static/images/payaso.jpg" alt="payaso" width="30" height="24">
+        </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -24,7 +28,7 @@
             <a class="nav-link" href="/post">NuevoPosteo</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/post">Perfil</a>
+            <a class="nav-link" href="/profile">Perfil</a>
           {% endif %}
               {% if request.user.is_authenticated %}
               <li class="nav-item">
@@ -56,8 +60,8 @@
 </main>
 
   <footer class="footer bg-light p-4 fixed-bottom">
-    <div class="container">
-      <span class="text-muted"> Curso de Django para lumetrio.com, de Maximiliano Cuffaro</span>
+    <div class="container; text-center pt-5">
+      <span class="text-muted"> Curso Django, de Maximiliano Cuffaro</span>
     </div>
   </footer>  
 </body>

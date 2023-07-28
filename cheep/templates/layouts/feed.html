@@ -1,0 +1,15 @@
+{% extends "layouts/main.html" %}
+{% load humanize %}
+{% block content %}
+
+{% for post in posts%}
+    <div class="container; text-center pt-5">
+        <img class="rounded-circle" src="{{ post.user.profile.image.url }}">
+        <time data-time="#"> {{ post.timestamp|naturaltime }}</time>
+        <a href="{% url 'profile' post.user.username %}">@{{post.user.username}} </a></h2>
+        <i class="clock"></i>
+        <div class="post">Escribio :  {{ post.text }}</div>
+    </div>
+
+{% endfor %}
+{% endblock %}

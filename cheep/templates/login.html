@@ -1,8 +1,9 @@
 {% extends "layouts/main.html" %}
 
 {% block content %}
-
-<h1> Iniciar Sesion</h1>
+<div class="container; text-center pt-5">
+    <h1> Iniciar Sesion</h1>
+</div>
 
 <form method="POST" action="">
     {% csrf_token %}
@@ -15,8 +16,8 @@
         <input type="password" class="form-control" name="password" placeholder="Contraseña">
     </div>
     <div>
-    <a href="/registro">Crear Cuenta</a>
-        <button class= "btn btn-primary" type="submit">Crear Cuenta</button>
+    <a href="/registro"class="btn btn-warning btn-lg active" role="button" aria-pressed="true" >Crear Cuenta</a>
+        <button class= "btn btn-primary" type="submit">Ingresar</button>
     </div>
 </form>
 

@@ -29,3 +29,4 @@ def post(request, id):
         'id' : post.id
     }
     return JsonResponse(post_dict, safe=False)
+

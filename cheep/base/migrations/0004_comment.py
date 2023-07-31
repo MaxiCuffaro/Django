@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.post')),
-                ('user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

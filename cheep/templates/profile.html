@@ -1,28 +1,40 @@
 {% extends "layouts/feed.html" %}
 {% block content %}
 
-<div class="card" style="width:18rem;">
+<div class="card bg_animate"  style="width:18rem;">
     <img class="card-imag-top" src="{{ user.profile.image.url }}" alt="Card image cap">
-    <div class="card-body">
+    <div class="card-body text-center">
         <h5 class=""card-title>@{{ user.username }}</h5>
     </div>
-
-    <div class="Follow">
+    
+    <div class="Follow text-center">
         <div>
             <h5> Post </h5>
             <p>{{ user.posts.count }}</p>
         </div>
-    </div>
-    <div>
-        <h5>Seguidores</h5>
-        <p>0</p>
-    </div>
-    <div>
-        <h5>Seguidos</h5>
-        <p>0</p>
+        <div>
+            <h5> Seguidos </h5>
+            <p> {{ user.profile.following.count }} </p>
+        </div>
+ 
+        <div>
+            <h5>Seguidores</h5>
+            <p>{{ user.profile.followers.count }}</p>
+                {% if request.user.is_authenticated %}
+                    {% if user.username != request.user.username %}
+                        {% if user not in request.user.profile.following %}
+                        <a href="{% url 'follow' user %}" class="btn btn-primary rounded-pill"> Seguir</a>
+                        {% else %}
+                        <a href="{% url 'unfollow' user %}" class="btn btn-primary rounded-pill"> Dejar de Seguir</a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+           
+        </div>
+
     </div>
 
-</div>
-
+    </div>
+   
 {{ block.super }}
 {% endblock %}

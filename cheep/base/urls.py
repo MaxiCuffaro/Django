@@ -15,4 +15,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/<str:username>/', views.profile, name='profile'),
     path('feed/', views.feed, name='feed'),
+    path('follow/<str:username>/', views.follow, name='follow'),
+    path('unfollow/<str:username>/', views.unfollow, name='unfollow'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

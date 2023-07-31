@@ -94,3 +94,19 @@ def feed(request):
     context= {'posts': posts}
     return render(request, 'feed.html', context)
 
+def follow(request, username):
+    current_user = request.user
+    to_user = User.objects.get(username=username)
+    to_user_id = to_user
+    rel = Relationship(from_user=current_user, to_user=to_user_id)
+    rel.save()
+    return redirect('/profile')
+
+def unfollow(request, username):
+    current_user = request.user
+    to_user = User.objects.get(username=username)
+    to_user_id = to_user.id
+    rel = Relationship.objects.get(from_user=current_user.id, to_user=to_user_id)
+    rel.delete()
+    return redirect ('/profile')
+

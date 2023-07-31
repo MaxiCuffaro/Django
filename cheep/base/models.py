@@ -49,3 +49,10 @@ class Relationship(models.Model):
         return f'{self.from_user} to {self.to_user}'
     
 
+class Hobbies(models.Model):
+    name = models.CharField(max_length=50)
+    desde_cuando = models.DateField()
+    time_training =models.TimeField()
+
+    def __str__(self):
+        return f' Hobbies de {self.user.username}'

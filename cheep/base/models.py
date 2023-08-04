@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-
+from django.db.models.signals import post_save 
 # Create your models here.
 class Post(models.Model):
     title = models.CharField (max_length=199)
@@ -30,13 +30,11 @@ class Profile(models.Model):
     def following(self):
         user_ids = Relationship.objects.filter(from_user=self.user)\
                                     .values_list('to_user_id', flat=True)
-        
         return User.objects.filter(id__in=user_ids)
     
     def followers(self):
         user_ids = Relationship.objects.filter(to_user=self.user)\
                                     .values_list('from_user_id', flat=True)
-        
         return User.objects.filter(id__in=user_ids)
     
    
@@ -48,6 +46,10 @@ class Relationship(models.Model):
     def __str__(self):
         return f'{self.from_user} to {self.to_user}'
     
+    class Meta: 
+        indexes = [ 
+            models.Index(fields=['from_user', 'to_user' ,]),
+    ]
 
 class Hobbies(models.Model):
     name = models.CharField(max_length=50)
@@ -56,3 +58,9 @@ class Hobbies(models.Model):
 
     def __str__(self):
         return f' Hobbies de {self.user.username}'
+    
+def create_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+post_save.connect(create_profile, sender=User)

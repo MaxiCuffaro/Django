@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages 
 from .models import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 from .models import Post, Comment
@@ -44,7 +45,7 @@ def registerPage(request):
         return redirect('/')
     return render(request, 'register.html')
 
-
+@login_required
 def post(request, id = None):
     if request.method =='POST':
         id = request.POST.get('id')
@@ -79,6 +80,9 @@ def comment(request):
     )
     return redirect('/')
 
+
+
+##  user =User.objects.get(username=username) ##
 def profile(request, username=None):
     current_user = request.user
     if username and username != current_user.username:
@@ -94,19 +98,22 @@ def feed(request):
     context= {'posts': posts}
     return render(request, 'feed.html', context)
 
+@login_required
 def follow(request, username):
     current_user = request.user
     to_user = User.objects.get(username=username)
     to_user_id = to_user
     rel = Relationship(from_user=current_user, to_user=to_user_id)
     rel.save()
+    messages.success(request, f'sigues a {username}')
     return redirect('/profile')
 
 def unfollow(request, username):
-    current_user = request.user
-    to_user = User.objects.get(username=username)
-    to_user_id = to_user.id
-    rel = Relationship.objects.get(from_user=current_user.id, to_user=to_user_id)
-    rel.delete()
-    return redirect ('/profile')
+	current_user = request.user
+	to_user = User.objects.get(username=username)
+	to_user_id = to_user.id
+	rel = Relationship.objects.get(from_user=current_user.id, to_user=to_user_id)
+	rel.delete()
+	messages.success(request, f'Ya no sigues a {username}')
+	return redirect('/profile')
 

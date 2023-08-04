@@ -7,34 +7,39 @@
         <h5 class=""card-title>@{{ user.username }}</h5>
     </div>
     
+    {% if request.user.is_authenticated %}
+        {% if user.username != request.user.username %}
+            {% if user not in request.user.profile.following %}
+                <a href="{% url 'follow' user %}" class="btn btn-primary rounded-pill"> Seguir</a>
+            {% else %}
+            <a href="{% url 'unfollow' user %}" class="btn btn-primary rounded-pill"> Dejar de Seguir</a>
+                {% endif %}   
+        {% endif %}
+    {% endif %}
+
+
+
+
+
+    
     <div class="Follow text-center">
         <div>
             <h5> Post </h5>
-            <p>{{ user.posts.count }}</p>
+            <p>{{ request.user.posts.count }}</p>
         </div>
         <div>
             <h5> Seguidos </h5>
-            <p> {{ user.profile.following.count }} </p>
+            <p> {{ request.user.profile.following.count }} </p>
         </div>
  
         <div>
             <h5>Seguidores</h5>
-            <p>{{ user.profile.followers.count }}</p>
-                {% if request.user.is_authenticated %}
-                    {% if user.username != request.user.username %}
-                        {% if user not in request.user.profile.following %}
-                        <a href="{% url 'follow' user %}" class="btn btn-primary rounded-pill"> Seguir</a>
-                        {% else %}
-                        <a href="{% url 'unfollow' user %}" class="btn btn-primary rounded-pill"> Dejar de Seguir</a>
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-           
+            <p>{{ request.user.profile.followers.count }}</p>
         </div>
 
     </div>
 
-    </div>
+</div>
    
 {{ block.super }}
 {% endblock %}
